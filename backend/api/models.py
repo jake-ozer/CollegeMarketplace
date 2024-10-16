@@ -12,7 +12,7 @@ class Listing(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 class ListingItem(models.Model):
     # on_delete=models.CASCADE means all the users posts will be deleted when the user is deleted
     listing = models.OneToOneField(Listing, on_delete=models.CASCADE, primary_key=True,)
