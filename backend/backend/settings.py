@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-""" We are implementing our own abstract database implementation
+"""#We are implementing our own abstract database implementation
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

@@ -22,6 +22,7 @@ db_configs = {
 
 
 class DBFactory:
+    @staticmethod
     def get_db_connection(db_type):
         if db_type == DBType.SQLITE:
             return SQLiteConnection(db_configs[DBType.SQLITE])
