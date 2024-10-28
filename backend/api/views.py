@@ -7,6 +7,8 @@ from backend.db_utils.queries import SQLiteDBQuery
 from backend.db_utils.db_factory import db_configs, DBType
 from .serializers import UserSerializer, ListingSerializer
 from .models import Listing
+#added by Chase (will need to edit)
+from .user_handler import UserHandler
 
 # Initialize specific query object
 db_query = SQLiteDBQuery(db_configs[DBType.SQLITE])
