@@ -12,27 +12,33 @@ from .models import Listing
 db_query = SQLiteDBQuery(db_configs[DBType.SQLITE])
 
 
-# Create your views here.
-class CreateUserView(generics.CreateAPIView):
+class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+
+    def get_permissions(self):
+        # User must be authenticated if performing any action other than create/retrieve/list
+        self.permission_classes = (
+            [AllowAny]
+            if (self.action in ["create", "list", "retrieve"])
+            else [IsAuthenticated]
+        )
+        return super().get_permissions()
 
     def perform_create(self, serializer):
-        # Custom database logic for user creation
         if serializer.is_valid():
-            # Save user to the database using your custom logic
-            print("will create new user")
-            # create_user(serializer.validated_data)
-        else:
-            print(serializer.errors)
+            validated_data = serializer.validated_data
+            db_query.create_user(validated_data)
 
 
+# Listing controller/handler
 class ListingViewSet(viewsets.ModelViewSet):
     serializer_class = ListingSerializer
 
     def get_permissions(self):
-        # User must be authenticated if creating or destroying listing
-        self.permission_classes = [IsAuthenticated] if (self.action in ["create", "destroy"]) else [AllowAny]
+        # User must be authenticated if performing any action other than retrieve/list
+        self.permission_classes = (
+            [AllowAny] if (self.action in ["list", "retrieve"]) else [IsAuthenticated]
+        )
         return super().get_permissions()
 
     def get_queryset(self):
