@@ -12,7 +12,7 @@ class DBConnection(ABC):
         pass
 
     @abstractmethod
-    def execute_query(self, query):
+    def execute_query(self, query, params=None):
         pass
 
     @abstractmethod
@@ -22,15 +22,29 @@ class DBConnection(ABC):
 
 class SQLiteConnection(DBConnection):
     def connect(self):
-        self.connection = sqlite3.connect(self.db_config["NAME"])
+        try:
+            self.connection = sqlite3.connect(self.db_config["NAME"])
+        except sqlite3.Error as e:
+            print(f"Error connecting to SQLite: {e}")
+            raise
 
     def execute_query(self, query, params=None):
-        cursor = self.connection.cursor()
-        if params:
-            cursor.execute(query, params)
-        else:
-            cursor.execute(query)
-        return cursor.fetchall()
+        try:
+            cursor = self.connection.cursor()
+            if params:
+                cursor.execute(query, params)
+            else:
+                cursor.execute(query)
+
+            if query.strip().upper().startswith("SELECT"):
+                return cursor.fetchall()
+            else:
+                # For INSERT, UPDATE, DELETE queries
+                self.connection.commit()
+                return cursor.rowcount  # Return number of rows affected
+        except sqlite3.Error as e:
+            print(f"An error occurred during query execution: {e}")
+            raise
 
     def disconnect(self):
         if self.connection:
