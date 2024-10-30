@@ -1,18 +1,17 @@
 from django.shortcuts import render
-from django.contrib.auth.hashers import make_password, check_password
-from rest_framework import generics
+from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from backend.db_utils.db_factory import DBFactory, DBType
-from backend.db_utils.queries import DBQuery
+from db_utils.db_factory import DBFactory, DBType
+from db_utils.queries import SQLiteDBQuery
 from .serializers import UserSerializer, ListingSerializer
 from .models import Listing
 #added by Chase (will need to edit)
 from .user_handler import UserHandler
 
 # Initialize specific query object
-db_query = DBQuery(DBFactory.get_db_connection(DBType.SQLITE))
+db_query = SQLiteDBQuery(DBFactory.get_db_connection(DBType.SQLITE))
 
 
 class UserViewSet(viewsets.ModelViewSet):

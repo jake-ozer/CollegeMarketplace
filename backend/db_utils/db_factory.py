@@ -1,5 +1,5 @@
 from enum import Enum
-from backend.db_utils.connections import SQLiteConnection
+from db_utils.connections import SQLiteConnection
 
 
 class DBType(Enum):
