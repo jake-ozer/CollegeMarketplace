@@ -23,3 +23,8 @@ class UserHandler:
     def update_account(self, username, password):
         #Add logic later 
         pass
+
+    #update_account function
+    def do_stuff(self):
+        #Add logic later 
+        pass
