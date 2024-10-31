@@ -1,14 +1,10 @@
-# models.py
 '''
 CONTAINS:
 -Classes: User, Message, SMS Message, Listing
+
 '''
-from django.contrib.auth.models import AbstractUser 
-from django.db import models
-from django.contrib.auth.hashers import make_password, check_password
 
 # Create your models here. Models are essentially DB tables
-
 '''
 CLASS: User
 '''
