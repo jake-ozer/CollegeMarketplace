@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import check_password
 '''
 CONTAINS:
 -Classes: User, Message, SMS Message, Listing
@@ -8,7 +9,9 @@ CONTAINS:
 '''
 CLASS: User
 '''
-class User(AbstractUser):
+
+class User:
+    # We might need to make our own abstract user
     #Functions
     def __init__(self, id, username, password=None):
         self.id = id
@@ -26,7 +29,8 @@ class User(AbstractUser):
 CLASS: Message
 '''
 class Message:
-    message_text = models.TextField()
+    # We cant use django model stuff due to our custom db implementation
+    # message_text = models.TextField()
 
     #Functions
     def __init__(self, id):
