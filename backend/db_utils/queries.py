@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from backend.db_utils.connections import SQLiteConnection
+from db_utils.connections import SQLiteConnection
 
 
 class DBQuery(ABC):

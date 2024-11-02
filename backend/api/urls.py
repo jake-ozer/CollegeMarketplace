@@ -23,7 +23,14 @@ with urlpatterns = format_suffix_patterns([
 router = DefaultRouter()
 router.register(r"users", UserViewSet, basename="user")
 router.register(r"listings", ListingViewSet, basename="listing")
+""" The router creates the following urlpatterns:
+- listings/,  name='listing-list'
+- listings/<int:pk>/, name='listing-detail'
+- users/,  name='user-list'
+- users/<int:pk>/, name='user-detail'
+"""
+
 
 urlpatterns = [
-    path("api/", include(router.urls)),
+    path('', include(router.urls)),
 ]
